@@ -53,46 +53,47 @@
       <!-- Reihe Selection -->
       <div class="mb-6">
         <label class="text-h6 mb-3 d-block">Reihe (1-6)</label>
-        <v-select
+        <v-btn-toggle
           v-model="reihe"
-          :items="[1, 2, 3, 4, 5, 6]"
-          variant="outlined"
-          class="large-input"
-          hide-details
-        ></v-select>
+          color="primary"
+          divided
+          class="w-100"
+          style="overflow: hidden"
+        >
+          <v-btn :value="1" size="large" class="flex-grow-1">1</v-btn>
+          <v-btn :value="2" size="large" class="flex-grow-1">2</v-btn>
+          <v-btn :value="3" size="large" class="flex-grow-1">3</v-btn>
+          <v-btn :value="4" size="large" class="flex-grow-1">4</v-btn>
+          <v-btn :value="5" size="large" class="flex-grow-1">5</v-btn>
+          <v-btn :value="6" size="large" class="flex-grow-1">6</v-btn>
+        </v-btn-toggle>
       </div>
 
       <!-- Fach Selection -->
       <div class="mb-6">
         <label class="text-h6 mb-3 d-block">Fach (1-5)</label>
-        <v-select
-          v-model="fach"
-          :items="[1, 2, 3, 4, 5]"
-          variant="outlined"
-          class="large-input"
-          hide-details
-        ></v-select>
+        <v-btn-toggle v-model="fach" color="primary" divided class="w-100">
+          <v-btn :value="1" size="large" class="flex-grow-1">1</v-btn>
+          <v-btn :value="2" size="large" class="flex-grow-1">2</v-btn>
+          <v-btn :value="3" size="large" class="flex-grow-1">3</v-btn>
+          <v-btn :value="4" size="large" class="flex-grow-1">4</v-btn>
+          <v-btn :value="5" size="large" class="flex-grow-1">5</v-btn>
+        </v-btn-toggle>
       </div>
 
       <!-- Position Selection -->
       <div class="mb-6">
         <label class="text-h6 mb-3 d-block">Position</label>
-        <v-btn-toggle
-          v-model="position"
-          color="primary"
-          mandatory
-          divided
-          class="w-100"
-        >
-          <v-btn value="links" size="x-large" class="flex-grow-1">
+        <v-btn-toggle v-model="position" color="primary" divided class="w-100">
+          <v-btn value="links" size="large" class="flex-grow-1">
             <v-icon class="mr-2">mdi-arrow-left-bold</v-icon>
             Links
           </v-btn>
-          <v-btn value="mitte" size="x-large" class="flex-grow-1">
+          <v-btn value="mitte" size="large" class="flex-grow-1">
             <v-icon class="mr-2">mdi-circle</v-icon>
             Mitte
           </v-btn>
-          <v-btn value="rechts" size="x-large" class="flex-grow-1">
+          <v-btn value="rechts" size="large" class="flex-grow-1">
             <v-icon class="mr-2">mdi-arrow-right-bold</v-icon>
             Rechts
           </v-btn>
@@ -101,7 +102,7 @@
 
       <!-- Action Buttons -->
       <v-row dense class="mt-6">
-        <v-col cols="12" sm="6">
+        <v-col cols="6">
           <v-btn
             block
             size="x-large"
@@ -113,7 +114,7 @@
             Abbrechen
           </v-btn>
         </v-col>
-        <v-col cols="12" sm="6">
+        <v-col cols="6">
           <v-btn
             block
             size="x-large"
@@ -157,9 +158,9 @@ const emit = defineEmits(["saved", "cancel", "close"]);
 
 // Form state
 const anzahl = ref(1);
-const reihe = ref(1);
-const fach = ref(1);
-const position = ref("links");
+const reihe = ref(null);
+const fach = ref(null);
+const position = ref(null);
 const saving = ref(false);
 const statusMessage = ref("");
 const statusType = ref("info");
