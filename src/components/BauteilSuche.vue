@@ -6,18 +6,21 @@
     </v-card-title>
 
     <v-card-text class="pa-6">
-      <!-- Search Input -->
-      <v-text-field
+      <!-- Search Input with Autocomplete -->
+      <v-autocomplete
         v-model="searchFilter"
+        :items="uniqueKdNummern"
         label="KD-Nummer filtern"
         placeholder="z.B. 12345A"
         variant="outlined"
         class="large-input mb-4"
         prepend-inner-icon="mdi-magnify"
         clearable
-        hint="Geben Sie eine KD-Nummer ein, um die Liste zu filtern"
+        hint="Tippen Sie eine KD-Nummer oder wählen Sie aus der Liste"
         persistent-hint
-      ></v-text-field>
+        no-data-text="Keine KD-Nummern vorhanden"
+        auto-select-first
+      ></v-autocomplete>
 
       <v-divider class="mb-4"></v-divider>
 
@@ -232,6 +235,15 @@ const snackbar = ref(false)
 const snackbarMessage = ref('')
 const snackbarColor = ref('success')
 
+// Computed: Get unique KD-Nummern for autocomplete
+const uniqueKdNummern = computed(() => {
+  const kdNummern = new Set()
+  allBauteile.value.forEach(b => {
+    kdNummern.add(b.kdNummer)
+  })
+  return Array.from(kdNummern).sort()
+})
+
 // Computed: Filter bauteile by KD-Nummer
 const filteredBauteile = computed(() => {
   if (!searchFilter.value || !searchFilter.value.trim()) {
@@ -347,6 +359,14 @@ onMounted(() => {
 .large-input :deep(.v-field__input) {
   font-size: 1.3rem;
   padding: 16px;
+}
+
+.large-input :deep(.v-autocomplete__content) {
+  font-size: 1.2rem;
+}
+
+.large-input :deep(.v-list-item-title) {
+  font-size: 1.2rem;
 }
 
 .results-table {
