@@ -82,7 +82,7 @@
         <!-- Manual Entry Tab -->
         <v-window-item value="manual">
           <v-alert type="info" variant="tonal" class="mb-4">
-            Geben Sie die KD-Nummer manuell ein, wenn der Scan nicht
+            Gib die KD-Nummer manuell ein, wenn der Scan nicht
             funktioniert.
           </v-alert>
 

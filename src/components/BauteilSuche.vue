@@ -24,7 +24,7 @@
         class="large-input mb-4"
         prepend-inner-icon="mdi-magnify"
         clearable
-        hint="Tippen Sie eine KD-Nummer oder wählen Sie aus der Liste"
+        hint="Tippe eine KD-Nummer oder wähle aus der Liste"
         persistent-hint
         no-data-text="Keine KD-Nummern vorhanden"
         auto-select-first

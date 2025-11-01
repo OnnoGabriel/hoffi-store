@@ -9,7 +9,7 @@
       <v-icon class="mr-3" color="primary">mdi-download</v-icon>
       <div class="flex-grow-1">
         <div class="font-weight-bold">App installieren</div>
-        <div class="text-caption">Installieren Sie Hoffi-Store für schnelleren Zugriff</div>
+        <div class="text-caption">Installiere Hoffi-Store für schnelleren Zugriff</div>
       </div>
     </div>
 
