@@ -381,4 +381,94 @@ onMounted(() => {
 .results-table td {
   padding: 16px !important;
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  /* Kleinere Schriftgrößen im Suchfeld */
+  .large-input :deep(.v-field__input) {
+    font-size: 1.1rem;
+    padding: 12px;
+  }
+  
+  .large-input :deep(.v-autocomplete__content) {
+    font-size: 1rem;
+  }
+  
+  .large-input :deep(.v-list-item-title) {
+    font-size: 1rem;
+  }
+  
+  /* Tabelle responsiver machen */
+  .results-table {
+    font-size: 0.9rem;
+  }
+  
+  .results-table th {
+    padding: 8px !important;
+    font-size: 0.9rem !important;
+  }
+  
+  .results-table td {
+    padding: 8px !important;
+  }
+  
+  /* Kleinere Chips in der Tabelle */
+  .results-table :deep(.v-chip) {
+    font-size: 0.85rem !important;
+    height: auto !important;
+    padding: 4px 8px !important;
+  }
+  
+  /* Checkout-Button kompakter */
+  .results-table :deep(.v-btn) {
+    font-size: 0.85rem !important;
+    padding: 8px 12px !important;
+    min-width: auto !important;
+  }
+  
+  /* Expansion Panel Titel responsiver */
+  :deep(.v-expansion-panel-title) {
+    font-size: 0.95rem !important;
+    padding: 12px !important;
+  }
+  
+  :deep(.v-expansion-panel-title .text-h6) {
+    font-size: 1rem !important;
+  }
+  
+  /* Kleinere Alert-Texte */
+  :deep(.v-alert .text-h6) {
+    font-size: 1rem !important;
+  }
+  
+  /* Card-Padding reduzieren */
+  :deep(.v-card-text.pa-6) {
+    padding: 16px !important;
+  }
+  
+  /* Anzahl-Spalte in der Tabelle */
+  .results-table :deep(.text-h5) {
+    font-size: 1.2rem !important;
+  }
+  
+  /* Chip-Größe im Panel-Header */
+  :deep(.v-expansion-panel-title .v-chip) {
+    font-size: 0.8rem !important;
+  }
+}
+
+/* Sehr kleine Bildschirme (< 400px) */
+@media (max-width: 400px) {
+  /* Tabelle noch kompakter */
+  .results-table th,
+  .results-table td {
+    padding: 6px !important;
+    font-size: 0.8rem !important;
+  }
+  
+  /* Button-Text auf sehr kleinen Bildschirmen verkürzen */
+  .results-table :deep(.v-btn .v-btn__content) {
+    font-size: 0.75rem !important;
+  }
+}
 </style>

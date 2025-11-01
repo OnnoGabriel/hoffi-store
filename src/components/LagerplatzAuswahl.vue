@@ -245,4 +245,84 @@ function showStatus(message, type = 'info') {
 .w-100 {
   width: 100%;
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  /* Kleinere Schriftgrößen für Eingabefelder */
+  .large-input :deep(.v-field__input) {
+    font-size: 1.2rem;
+    padding: 12px;
+  }
+  
+  .large-input :deep(.v-select__selection) {
+    font-size: 1.2rem;
+  }
+  
+  /* Labels kleiner auf mobil */
+  :deep(.text-h6) {
+    font-size: 1.05rem !important;
+  }
+  
+  /* Plus/Minus Buttons kompakter */
+  :deep(.v-btn[icon]) {
+    width: 48px !important;
+    height: 48px !important;
+  }
+  
+  :deep(.v-btn[icon] .v-icon) {
+    font-size: 1.5rem !important;
+  }
+  
+  /* Position-Toggle-Buttons responsiver */
+  :deep(.v-btn-toggle .v-btn) {
+    font-size: 0.9rem !important;
+    padding: 8px 12px !important;
+  }
+  
+  :deep(.v-btn-toggle .v-btn .v-icon) {
+    font-size: 1rem !important;
+    margin-right: 4px !important;
+  }
+  
+  /* Card-Padding reduzieren */
+  :deep(.v-card-text.pa-6) {
+    padding: 16px !important;
+  }
+  
+  /* Alert Info-Box */
+  :deep(.v-alert .text-h6) {
+    font-size: 1rem !important;
+  }
+  
+  /* Action Buttons */
+  :deep(.v-btn[size="x-large"]) {
+    height: 48px !important;
+    font-size: 1rem !important;
+  }
+}
+
+/* Sehr kleine Bildschirme (< 400px) */
+@media (max-width: 400px) {
+  /* Noch kleinere Schriften */
+  .large-input :deep(.v-field__input) {
+    font-size: 1.1rem;
+    padding: 10px;
+  }
+  
+  .large-input :deep(.v-select__selection) {
+    font-size: 1.1rem;
+  }
+  
+  /* Position-Buttons ohne Text-Umbruch */
+  :deep(.v-btn-toggle .v-btn) {
+    font-size: 0.8rem !important;
+    padding: 6px 8px !important;
+  }
+  
+  /* Buttons noch kompakter */
+  :deep(.v-btn[size="x-large"]) {
+    height: 44px !important;
+    font-size: 0.9rem !important;
+  }
+}
 </style>

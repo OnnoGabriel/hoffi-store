@@ -516,4 +516,123 @@ onBeforeUnmount(() => {
   font-size: 1.3rem;
   padding: 16px;
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  /* Video Container größer auf mobil für bessere Sicht */
+  .video-element {
+    max-height: 50vh;
+  }
+  
+  /* Tabs kompakter */
+  :deep(.v-tabs) {
+    font-size: 0.9rem;
+  }
+  
+  :deep(.v-tab) {
+    font-size: 0.9rem !important;
+    padding: 8px 12px !important;
+    min-width: auto !important;
+  }
+  
+  :deep(.v-tab .v-icon) {
+    font-size: 1.1rem !important;
+  }
+  
+  /* Buttons kompakter */
+  :deep(.v-btn[size="large"]) {
+    height: 44px !important;
+    font-size: 0.9rem !important;
+    padding: 0 12px !important;
+  }
+  
+  :deep(.v-btn[size="x-large"]) {
+    height: 48px !important;
+    font-size: 1rem !important;
+  }
+  
+  /* Button Icons kleiner */
+  :deep(.v-btn .v-icon) {
+    font-size: 1.1rem !important;
+  }
+  
+  /* Eingabefelder */
+  .large-input :deep(.v-field__input) {
+    font-size: 1.1rem;
+    padding: 12px;
+  }
+  
+  /* Textarea kompakter */
+  :deep(.v-textarea) {
+    font-size: 0.95rem;
+  }
+  
+  /* Switch kompakter */
+  :deep(.v-switch) {
+    font-size: 0.9rem;
+  }
+  
+  :deep(.v-switch .v-label) {
+    font-size: 0.9rem !important;
+  }
+  
+  /* Alert-Boxen */
+  :deep(.v-alert) {
+    font-size: 0.9rem;
+  }
+  
+  /* Card Padding reduzieren */
+  :deep(.v-card-text.pa-4) {
+    padding: 12px !important;
+  }
+  
+  /* Card Title */
+  :deep(.v-card-title) {
+    font-size: 1.1rem !important;
+    padding: 12px 16px !important;
+  }
+  
+  :deep(.v-card-title .v-icon) {
+    font-size: 1.3rem !important;
+  }
+}
+
+/* Sehr kleine Bildschirme (< 400px) */
+@media (max-width: 400px) {
+  /* Video noch größer auf sehr kleinen Bildschirmen */
+  .video-element {
+    max-height: 55vh;
+  }
+  
+  /* Buttons noch kompakter */
+  :deep(.v-btn[size="large"]) {
+    height: 40px !important;
+    font-size: 0.85rem !important;
+  }
+  
+  :deep(.v-btn[size="x-large"]) {
+    height: 44px !important;
+    font-size: 0.95rem !important;
+  }
+  
+  /* Tab-Text eventuell kürzen durch kleinere Schrift */
+  :deep(.v-tab) {
+    font-size: 0.85rem !important;
+    padding: 6px 8px !important;
+  }
+  
+  /* Eingabefelder kleiner */
+  .large-input :deep(.v-field__input) {
+    font-size: 1rem;
+    padding: 10px;
+  }
+}
+
+/* Landscape Modus auf mobilen Geräten */
+@media (max-width: 900px) and (orientation: landscape) {
+  /* Video kleiner im Landscape-Modus */
+  .video-element {
+    max-height: 60vh;
+  }
+}
 </style>

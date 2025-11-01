@@ -111,4 +111,46 @@ onMounted(() => {
 .action-button .v-btn__content {
   font-size: 1.3rem;
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  /* Kleinere Buttons auf mobilen Geräten */
+  .action-button {
+    min-height: 80px !important;
+    font-size: 1.1rem !important;
+  }
+  
+  .action-button .v-btn__content {
+    font-size: 1.1rem;
+  }
+  
+  /* Kleinere Schriftgrößen für mobile Geräte */
+  .action-button :deep(.text-h5) {
+    font-size: 1.1rem !important;
+  }
+  
+  /* Header Icon und Text kleiner auf mobil */
+  :deep(.v-card-title.text-h4) {
+    font-size: 1.5rem !important;
+    padding: 16px !important;
+  }
+  
+  :deep(.v-card-title .v-icon) {
+    font-size: 2rem !important;
+  }
+  
+  /* Statistik-Zahlen kleiner auf mobil */
+  :deep(.text-h3) {
+    font-size: 2rem !important;
+  }
+  
+  :deep(.text-h6) {
+    font-size: 1rem !important;
+  }
+  
+  /* Weniger Padding auf mobil */
+  :deep(.v-card-text.pa-6) {
+    padding: 16px !important;
+  }
+}
 </style>
