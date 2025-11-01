@@ -61,19 +61,6 @@
               <v-btn
                 block
                 size="large"
-                color="primary"
-                :disabled="!cameraActive"
-                :loading="ocrProcessing"
-                @click="doOCR"
-                prepend-icon="mdi-camera-burst"
-              >
-                Photo Texterkennung
-              </v-btn>
-            </v-col>
-            <v-col cols="12" sm="6">
-              <v-btn
-                block
-                size="large"
                 color="warning"
                 :disabled="!cameraActive"
                 @click="toggleTorch"
@@ -81,19 +68,6 @@
               >
                 Blitzlicht an/aus
               </v-btn>
-            </v-col>
-          </v-row>
-
-          <!-- Live OCR Toggle -->
-          <v-row dense class="mb-4">
-            <v-col cols="12">
-              <v-switch
-                v-model="liveOcrEnabled"
-                color="primary"
-                label="Video Texterkennung (alle 1.5s)"
-                :disabled="!cameraActive"
-                hide-details
-              ></v-switch>
             </v-col>
           </v-row>
 
@@ -189,7 +163,6 @@ const activeTab = ref('scan')
 const videoRef = ref(null)
 const cameraActive = ref(false)
 const ocrProcessing = ref(false)
-const liveOcrEnabled = ref(false)
 const recognizedText = ref('')
 const orderNumber = ref('')
 const manualKdNummer = ref('')
@@ -243,15 +216,18 @@ async function startCamera() {
           textDetector = new TextDetector()
           usingTextDetector = true
           console.log('TextDetector available - using native API')
-          showStatus('Native TextDetector API aktiv', 'success')
+          showStatus('Kamera und Video-Texterkennung gestartet', 'success')
         } catch (e) {
           usingTextDetector = false
-          showStatus('Using Tesseract.js for OCR', 'info')
+          showStatus('Kamera gestartet - Video-Texterkennung aktiv', 'success')
         }
       } else {
         usingTextDetector = false
-        showStatus('Using Tesseract.js for OCR', 'info')
+        showStatus('Kamera gestartet - Video-Texterkennung aktiv', 'success')
       }
+      
+      // Automatically start live OCR
+      startLiveOCR()
     }
   } catch (error) {
     console.error('Camera error:', error)
@@ -261,16 +237,20 @@ async function startCamera() {
 
 // Stop Camera
 function stopCamera() {
+  // Stop live OCR first
+  stopLiveOCR()
+  
   if (stream) {
     stream.getTracks().forEach(t => t.stop())
     stream = null
     track = null
   }
   cameraActive.value = false
-  liveOcrEnabled.value = false
   if (videoRef.value) {
     videoRef.value.srcObject = null
   }
+  
+  showStatus('Kamera und Video-Texterkennung gestoppt', 'info')
 }
 
 // Capture Frame from Video
@@ -461,15 +441,6 @@ function showStatus(message, type = 'info') {
     }, 3000)
   }
 }
-
-// Watch for live OCR toggle
-watch(liveOcrEnabled, (newValue) => {
-  if (newValue) {
-    startLiveOCR()
-  } else {
-    stopLiveOCR()
-  }
-})
 
 // Use manual entry
 function useManualEntry() {
