@@ -57,43 +57,43 @@
           v-model="reihe"
           color="primary"
           divided
-          class="w-100"
+          class="w-100 selection-toggle"
           style="overflow: hidden"
         >
-          <v-btn :value="1" size="large" class="flex-grow-1">1</v-btn>
-          <v-btn :value="2" size="large" class="flex-grow-1">2</v-btn>
-          <v-btn :value="3" size="large" class="flex-grow-1">3</v-btn>
-          <v-btn :value="4" size="large" class="flex-grow-1">4</v-btn>
-          <v-btn :value="5" size="large" class="flex-grow-1">5</v-btn>
-          <v-btn :value="6" size="large" class="flex-grow-1">6</v-btn>
+          <v-btn :value="1" size="large" class="flex-grow-1 selection-btn">1</v-btn>
+          <v-btn :value="2" size="large" class="flex-grow-1 selection-btn">2</v-btn>
+          <v-btn :value="3" size="large" class="flex-grow-1 selection-btn">3</v-btn>
+          <v-btn :value="4" size="large" class="flex-grow-1 selection-btn">4</v-btn>
+          <v-btn :value="5" size="large" class="flex-grow-1 selection-btn">5</v-btn>
+          <v-btn :value="6" size="large" class="flex-grow-1 selection-btn">6</v-btn>
         </v-btn-toggle>
       </div>
 
       <!-- Fach Selection -->
       <div class="mb-6">
         <label class="text-h6 mb-3 d-block">Fach (1-5)</label>
-        <v-btn-toggle v-model="fach" color="primary" divided class="w-100">
-          <v-btn :value="1" size="large" class="flex-grow-1">1</v-btn>
-          <v-btn :value="2" size="large" class="flex-grow-1">2</v-btn>
-          <v-btn :value="3" size="large" class="flex-grow-1">3</v-btn>
-          <v-btn :value="4" size="large" class="flex-grow-1">4</v-btn>
-          <v-btn :value="5" size="large" class="flex-grow-1">5</v-btn>
+        <v-btn-toggle v-model="fach" color="primary" divided class="w-100 selection-toggle">
+          <v-btn :value="1" size="large" class="flex-grow-1 selection-btn">1</v-btn>
+          <v-btn :value="2" size="large" class="flex-grow-1 selection-btn">2</v-btn>
+          <v-btn :value="3" size="large" class="flex-grow-1 selection-btn">3</v-btn>
+          <v-btn :value="4" size="large" class="flex-grow-1 selection-btn">4</v-btn>
+          <v-btn :value="5" size="large" class="flex-grow-1 selection-btn">5</v-btn>
         </v-btn-toggle>
       </div>
 
       <!-- Position Selection -->
       <div class="mb-6">
         <label class="text-h6 mb-3 d-block">Position</label>
-        <v-btn-toggle v-model="position" color="primary" divided class="w-100">
-          <v-btn value="links" size="large" class="flex-grow-1">
+        <v-btn-toggle v-model="position" color="primary" divided class="w-100 selection-toggle">
+          <v-btn value="links" size="large" class="flex-grow-1 selection-btn">
             <v-icon class="mr-2">mdi-arrow-left-bold</v-icon>
             Links
           </v-btn>
-          <v-btn value="mitte" size="large" class="flex-grow-1">
+          <v-btn value="mitte" size="large" class="flex-grow-1 selection-btn">
             <v-icon class="mr-2">mdi-circle</v-icon>
             Mitte
           </v-btn>
-          <v-btn value="rechts" size="large" class="flex-grow-1">
+          <v-btn value="rechts" size="large" class="flex-grow-1 selection-btn">
             <v-icon class="mr-2">mdi-arrow-right-bold</v-icon>
             Rechts
           </v-btn>
@@ -245,6 +245,17 @@ function showStatus(message, type = "info") {
   width: 100%;
 }
 
+/* Hervorhebung der Auswahl-Buttons */
+.selection-toggle :deep(.v-btn) {
+  border: 2px solid rgba(var(--v-theme-primary), 0.5) !important;
+  font-weight: 600;
+}
+
+.selection-toggle :deep(.v-btn--active) {
+  border: 3px solid rgb(var(--v-theme-primary)) !important;
+  font-weight: 700;
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 600px) {
   /* Kleinere Schriftgrößen für Eingabefelder */
@@ -272,13 +283,15 @@ function showStatus(message, type = "info") {
     font-size: 1.5rem !important;
   }
 
-  /* Position-Toggle-Buttons responsiver */
-  :deep(.v-btn-toggle .v-btn) {
-    font-size: 0.9rem !important;
-    padding: 8px 12px !important;
+  /* Reihe & Fach Auswahl-Buttons kleiner */
+  .selection-toggle :deep(.selection-btn) {
+    font-size: 0.85rem !important;
+    padding: 4px 6px !important;
+    min-width: 40px !important;
+    height: 40px !important;
   }
 
-  :deep(.v-btn-toggle .v-btn .v-icon) {
+  .selection-toggle :deep(.selection-btn .v-icon) {
     font-size: 1rem !important;
     margin-right: 4px !important;
   }
@@ -312,10 +325,17 @@ function showStatus(message, type = "info") {
     font-size: 1.1rem;
   }
 
-  /* Position-Buttons ohne Text-Umbruch */
-  :deep(.v-btn-toggle .v-btn) {
-    font-size: 0.8rem !important;
-    padding: 6px 8px !important;
+  /* Reihe & Fach Auswahl-Buttons noch kleiner */
+  .selection-toggle :deep(.selection-btn) {
+    font-size: 0.75rem !important;
+    padding: 2px 4px !important;
+    min-width: 35px !important;
+    height: 36px !important;
+  }
+
+  .selection-toggle :deep(.selection-btn .v-icon) {
+    font-size: 0.9rem !important;
+    margin-right: 2px !important;
   }
 
   /* Buttons noch kompakter */
