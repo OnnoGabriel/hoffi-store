@@ -14,7 +14,7 @@ Er entnimmt dann dem Lager ein oder mehrere Bauteile und checkt diese in der App
 
 # Neue Struktur und Bedienung der App
 
-Füge eine Dashboard-Seite für den "Hoffi-Store" ein. Das Dashbord soll Buttons zu drei Bereichen der Anwendungen anzeigen:
+Füge eine Dashboard-Seite für den "Hoffi-App" ein. Das Dashbord soll Buttons zu drei Bereichen der Anwendungen anzeigen:
 
 1. Bauteil erfassen (das ist die bisherige Komponente OCRCamera)
 

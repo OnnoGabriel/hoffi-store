@@ -36,7 +36,7 @@ A Vue 3 application using Vuetify for camera-based OCR (Optical Character Recogn
 
 ```bash
 git clone <repository-url>
-cd hoffi-store
+cd hoffi-app
 ```
 
 2. Install dependencies:
@@ -82,7 +82,7 @@ The production build will be output to the `dist/` directory.
 ## Project Structure
 
 ```
-hoffi-store/
+hoffi-app/
 ├── src/
 │   ├── components/
 │   │   └── OCRCamera.vue      # Main OCR camera component
@@ -116,6 +116,7 @@ KD-Auftrag: <order-number>
 ```
 
 The extracted order number will appear in the "Zuletzt erkannte Nummer" field. The detection algorithm:
+
 - Searches for lines containing "KD-Auftrag:"
 - Extracts the first token after the colon that matches the pattern `\d+\D` (digits followed by non-digit)
 - Displays the detected order number separately from the full text
@@ -129,6 +130,7 @@ The application requests camera access with the following constraints:
 - **Fallback**: If exact environment mode fails, uses non-exact constraint
 
 Frame capture is optimized to:
+
 - Maximum width of 1024px to reduce processing load
 - Maintains aspect ratio when scaling
 - Uses off-screen canvas for efficient processing
@@ -156,17 +158,20 @@ The application automatically selects the best available OCR engine and displays
 ## Browser Compatibility
 
 ### Full Support
+
 - Chrome 87+ (with TextDetector API)
 - Edge 87+ (with TextDetector API)
 - Chrome for Android
 - Safari for iOS (with Tesseract.js fallback)
 
 ### Requirements
+
 - **Camera Access**: Requires HTTPS connection (except for localhost)
 - **Torch/Flashlight**: Requires browser support for `MediaStreamTrack.applyConstraints()` with torch capability
 - **getUserMedia API**: Required for camera access
 
 ### Known Limitations
+
 - TextDetector API is experimental and may not be available in all browsers
 - Torch control requires specific device hardware and browser support
 - Camera permissions must be granted by the user
@@ -232,6 +237,7 @@ server: {
 ### Vuetify Theme (src/plugins/vuetify.js)
 
 Customizable Material Design theme with default light mode:
+
 - Primary: `#1976D2` (Blue)
 - Success: `#4CAF50` (Green)
 - Error: `#FF5252` (Red)
@@ -249,18 +255,21 @@ Customizable Material Design theme with default light mode:
 This Vue 3 application is a complete rewrite of the original `index-original.html` file with the following improvements:
 
 ### Architecture Improvements
+
 - **Component-Based Architecture**: Modular Vue components for better maintainability
 - **Reactive State Management**: Vue 3 Composition API for cleaner state handling
 - **Modern UI**: Vuetify Material Design components
 - **Better UX**: Status messages, loading indicators, and error handling
 
 ### Technical Improvements
+
 - **Type Safety**: Better code organization and error prevention
 - **Build Optimization**: Vite for fast development and optimized production builds
 - **Plugin System**: Modular Vuetify and Vue configuration
 - **Auto-Import**: Vuetify components loaded on-demand
 
 ### Features Added
+
 - Automatic order number extraction
 - Status messages with auto-dismiss
 - Loading indicators for OCR processing
@@ -276,6 +285,7 @@ This Vue 3 application is a complete rewrite of the original `index-original.htm
 **Emits**: None
 
 **Internal State**:
+
 - `cameraActive`: Boolean - Camera running state
 - `ocrProcessing`: Boolean - OCR operation in progress
 - `liveOcrEnabled`: Boolean - Continuous OCR mode
@@ -285,6 +295,7 @@ This Vue 3 application is a complete rewrite of the original `index-original.htm
 - `statusType`: String - Message type: 'info' | 'success' | 'warning' | 'error'
 
 **Key Methods**:
+
 - `startCamera()`: Initialize camera stream
 - `stopCamera()`: Stop camera and cleanup
 - `doOCR()`: Perform single OCR operation

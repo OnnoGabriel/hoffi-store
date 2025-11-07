@@ -4,9 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Hoffi-Store** is a Progressive Web App (PWA) for warehouse management in metal processing facilities. The app enables workers to organize components on pallets using OCR-based scanning of delivery notes (KD-Numbers) or manual entry. Built with Vue 3, Vuetify, Vue Router, and IndexedDB for offline-capable persistent storage.
+**Hoffi-App** is a Progressive Web App (PWA) for warehouse management in metal processing facilities. The app enables workers to organize components on pallets using OCR-based scanning of delivery notes (KD-Numbers) or manual entry. Built with Vue 3, Vuetify, Vue Router, and IndexedDB for offline-capable persistent storage.
 
 **Key Features:**
+
 - OCR scanning for KD-Numbers (dual engine: TextDetector API + Tesseract.js)
 - Manual KD-Number entry fallback
 - Warehouse location assignment (6 rows, 5 shelves, 3 positions per shelf)
@@ -21,6 +22,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Common Commands
 
 ### Development
+
 ```bash
 npm run dev          # Start dev server at localhost:3000
 npm run build        # Production build to dist/
@@ -28,6 +30,7 @@ npm run preview      # Preview production build
 ```
 
 ### Installation
+
 ```bash
 npm install
 ```
@@ -62,6 +65,7 @@ src/
 The application implements a fallback pattern for OCR:
 
 1. **Primary: Native TextDetector API**
+
    - Detected at runtime: `if ('TextDetector' in window)`
    - Near real-time performance, low resource usage
    - Available in Chrome/Edge browsers
@@ -74,6 +78,7 @@ The application implements a fallback pattern for OCR:
    - Worker instance stored in `tesseractWorker`
 
 OCR flow (src/components/OCRCamera.vue:276-314):
+
 ```
 doOCR() → captureFrame() → Try runTextDetector() → Fallback to runTesseract()
 ```
@@ -81,12 +86,14 @@ doOCR() → captureFrame() → Try runTextDetector() → Fallback to runTesserac
 ### Camera Stream Management
 
 Camera initialization uses progressive fallback:
+
 1. Try exact environment facing mode: `facingMode: { exact: 'environment' }`
 2. Fallback to non-exact: `facingMode: 'environment'`
 3. Store stream globally for torch control and frame capture
 4. Track reference stored for flashlight/torch capability detection
 
 Critical cleanup pattern in `onBeforeUnmount()`:
+
 - Stop camera tracks
 - Clear live OCR interval
 - Terminate Tesseract worker to prevent memory leaks
@@ -94,6 +101,7 @@ Critical cleanup pattern in `onBeforeUnmount()`:
 ### Order Number Extraction
 
 Business logic (src/components/OCRCamera.vue):
+
 - Searches recognized text for lines containing "KD-Auftrag:"
 - Extracts first token matching pattern `\d+\D` (digits followed by non-digit)
 - Updates `orderNumber` ref separately from full OCR result
@@ -102,10 +110,11 @@ Business logic (src/components/OCRCamera.vue):
 
 ### Data Persistence (IndexedDB)
 
-**Database:** `hoffi-store-db`
+**Database:** `hoffi-app-db`
 **Object Store:** `bauteile`
 
 **Schema:**
+
 ```javascript
 {
   id: number (auto-increment),
@@ -119,10 +128,12 @@ Business logic (src/components/OCRCamera.vue):
 ```
 
 **Indexes:**
+
 - `kdNummer` (non-unique) - for fast searches
 - `erfasstAm` (non-unique) - for sorting by creation date
 
 **Service Functions** (src/services/database.js):
+
 - `addBauteil(bauteil)` - Add new component
 - `getAllBauteile()` - Get all components
 - `getBauteileByKdNummer(kdNummer)` - Search by KD-Number
@@ -134,6 +145,7 @@ Business logic (src/components/OCRCamera.vue):
 ### Frame Capture Optimization
 
 Uses off-screen canvas for efficiency:
+
 - Created once at module level: `const offCanvas = document.createElement('canvas')`
 - Reused for all frame captures to avoid repeated allocation
 - Limits max width to 1024px to reduce OCR processing load
@@ -142,6 +154,7 @@ Uses off-screen canvas for efficiency:
 ### Live OCR Mode
 
 Continuous recognition implemented via interval:
+
 - Toggle via `liveOcrEnabled` ref (watched for start/stop)
 - Runs `doOCR()` every 1500ms when active
 - Interval stored in `liveInterval` for cleanup
@@ -154,24 +167,28 @@ Continuous recognition implemented via interval:
 The app is configured as a PWA using `vite-plugin-pwa`:
 
 **Manifest** (auto-generated at build):
-- Name: "Hoffi-Store Lagerverwaltung"
+
+- Name: "Hoffi-App Lagerverwaltung"
 - Theme color: #1976D2 (primary blue)
 - Display mode: standalone
 - Orientation: portrait
 - Icons: SVG with maskable variant
 
 **Service Worker** (Workbox):
+
 - Auto-update strategy
 - Precaches all static assets (JS, CSS, HTML, fonts)
 - Runtime caching for Tesseract.js CDN resources
 - Offline-capable after first load
 
 **Installation:**
+
 - `PwaInstallPrompt.vue` component shows install banner after 3 seconds
 - User can dismiss (saved to localStorage)
 - Works on Android, iOS, and desktop Chrome/Edge
 
 **Icons:**
+
 - `/public/icons/icon.svg` - Standard app icon (512x512)
 - `/public/icons/icon-maskable.svg` - Maskable icon for Android
 - `/public/favicon.svg` - Browser favicon
@@ -179,6 +196,7 @@ The app is configured as a PWA using `vite-plugin-pwa`:
 ### HTTPS Requirement
 
 Camera access and PWA installation require HTTPS on mobile devices:
+
 - Dev server configured with `host: true` for network access
 - Uncomment `https: true` in vite.config.js for HTTPS in development
 - Localhost exempt from HTTPS requirement
@@ -187,8 +205,9 @@ Camera access and PWA installation require HTTPS on mobile devices:
 ## Vuetify Configuration
 
 Auto-import enabled in vite.config.js:8:
+
 ```javascript
-vuetify({ autoImport: true })
+vuetify({ autoImport: true });
 ```
 
 All Vuetify components available without explicit imports. Theme customization in src/plugins/vuetify.js.
@@ -245,24 +264,31 @@ All Vuetify components available without explicit imports. Theme customization i
 ## Important Implementation Details
 
 ### State Management
+
 All state in OCRCamera.vue using Vue 3 Composition API refs:
+
 - `cameraActive`, `ocrProcessing`, `liveOcrEnabled`: UI control states
 - `recognizedText`, `orderNumber`: OCR results
 - `statusMessage`, `statusType`: User feedback system
 
 Module-level variables for non-reactive state:
+
 - `stream`, `track`: MediaStream references
 - `textDetector`, `tesseractWorker`: OCR engine instances
 - `usingTextDetector`, `tesseractLoaded`: Engine availability flags
 
 ### Error Handling
+
 Status message system (src/components/OCRCamera.vue:380-393):
+
 - Auto-dismisses success/info messages after 3 seconds
 - Error/warning messages persist until manually closed
 - All async operations wrapped in try-catch with user-facing error messages
 
 ### Memory Management
+
 Critical cleanup in `onBeforeUnmount()`:
+
 1. Stop all camera tracks: `stream.getTracks().forEach(t => t.stop())`
 2. Clear live OCR interval
 3. Terminate Tesseract worker: `tesseractWorker.terminate()`
