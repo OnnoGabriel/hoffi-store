@@ -8,7 +8,7 @@
             class="text-h4 bg-blue-grey-lighten-4 text-black pa-6 text-center"
           >
             <v-icon size="x-large" class="mr-3">mdi-warehouse</v-icon>
-            Hoffi-Store
+            Hoffi-App
           </v-card-title>
         </v-card>
 

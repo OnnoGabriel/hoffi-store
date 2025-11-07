@@ -1,29 +1,29 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Dashboard from '../views/Dashboard.vue'
-import ErfassenView from '../views/ErfassenView.vue'
-import SuchenView from '../views/SuchenView.vue'
+import { createRouter, createWebHistory } from "vue-router";
+import Dashboard from "../views/Dashboard.vue";
+import ErfassenView from "../views/ErfassenView.vue";
+import SuchenView from "../views/SuchenView.vue";
 
 const routes = [
   {
-    path: '/',
-    name: 'Dashboard',
-    component: Dashboard
+    path: "/",
+    name: "Dashboard",
+    component: Dashboard,
   },
   {
-    path: '/erfassen',
-    name: 'Erfassen',
-    component: ErfassenView
+    path: "/erfassen",
+    name: "Erfassen",
+    component: ErfassenView,
   },
   {
-    path: '/suchen',
-    name: 'Suchen',
-    component: SuchenView
-  }
-]
+    path: "/suchen",
+    name: "Suchen",
+    component: SuchenView,
+  },
+];
 
 const router = createRouter({
-  history: createWebHistory('/hoffi-store/'),
-  routes
-})
+  history: createWebHistory("/hoffi-app/"),
+  routes,
+});
 
-export default router
+export default router;
