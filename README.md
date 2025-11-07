@@ -79,6 +79,12 @@ npm run preview
 
 The production build will be output to the `dist/` directory.
 
+## Publish on GitHub Pages
+
+```bash
+$ npm run build && git subtree push --prefix dist origin gh-pages
+```
+
 ## Project Structure
 
 ```
